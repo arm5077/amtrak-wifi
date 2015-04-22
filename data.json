@@ -1,0 +1,44 @@
+[
+  {
+    "title":"Washington to Baltimore",
+    "text":"<p>Surprisingly good service in Union Station and up to Baltimore. Briefly considered writing a #SlatePitch about how great the service and why people are wrong to complain.</p>",
+    "lat":39.102024,
+    "lng":-76.819153,
+    "id":1
+  },
+  {
+    "title":"Baltimore to Philadelphia",
+    "text":"<p>A couple things I quickly discovered as the WiFi got worse – the tests could take minutes to load, meaning the train was several minutes away from the original testing spot. And both sites didn’t always connect at times.</p><p>Streaming video? Not a chance – the AmtrakConnect WiFi actually blocks YouTube and Netflix, and Amtrak is up front about its <a href=\"http://www.amtrak.com/journey-with-wi-fi-train-station\">limitations</a>. Unable to spend the time watching movies, how about doing some work? Problem: continuous use is just impossible for much of the trip – the connection is too choppy. Sending email wasn’t the most horrible experience, no worse than getting cut off or delays on the DC metro, but nothing to brag about.</p>",
+    "lat":39.590543,
+    "lng":-76.099548,
+    "id":2
+  },
+  {
+    "title":"Philadelphia to New York",
+    "text":"<p>The area north of Philadelphia through Trenton is a major dead spot. Nothing seemed to load quickly at all – even the two speed checking sites were having major difficulties. Arrived in New York about 5 minutes behind schedule and spent the day at The Met and SoHo.</p>",
+    "lat":40.306433,
+    "lng":-74.608154,
+    "id":3
+  },
+  {
+    "title":"New York to Philadelphia",
+    "text":"One improvement between the current Penn Station and the <a href=\"http://glassian.org/Prism/Gallery/NewYork/penn_station.html\">historic building it replaced</a>: The in-station Amtrak WiFi is really good.</p><p><a href=\"http://www.slate.com/blogs/moneybox/2013/07/11/penn_station_boarding_secret.html\">Eschewing the Millennial-favored boarding hack</a>, I boarded the 6 p.m. Acela southbound. (My preferred method: Ask a Red Cap which track your train is on and wait there.)</p><p>Out of New York, the connection was mediocre, but at least it worked, letting me look up some the history of the Northeast Corridor route, like the early 1970s-Metropark Station, once briefly named for Abscam-linked <a href=\"https://rucore.libraries.rutgers.edu/rutgers-lib/40994/\">Sen. Harrison Williams</a>. Or the former <a href=\"http://www.newjerseynewsroom.com/style/origin-of-manhattan-transfer-is-part-of-nj-history\">Manhattan Transfer location</a>, located near Secaucus Junction, which is named after a non-Abscam senator, the late <a href=\"http://www.nj.com/news/index.ssf/2013/06/us_sen_frank_lautenberg_gets_on_last_ride_in_the_secaucus_station.html\">Frank Lautenberg</a>).</p>",
+    "lat":40.306433,
+    "lng":-74.608154,
+    "id":4
+  },
+  {
+    "title":"Philadelphia to Baltimore",
+    "text":"<p>Woof. Delaware is a poor state for Amtrak’s WiFi (Biden must not use it much there). Missing or dropped connections, inability to load sites (you’ll note the return trip has a wide testing gap in the 7 p.m. hour). Once across the border in <a href=\"http://blogs.weta.org/boundarystones/2013/02/14/elkton-maryland-quickie-wedding-capital-east-coast\">Elkton, Maryland</a>, it picked up a bit to a roaring boil of, well, not much.</p>",
+    "lat":39.590543,
+    "lng":-76.099548,
+    "id":5
+  },
+  {
+    "title":"Baltimore to Washington",
+    "text":"<p>In the 8 p.m. hour on a Friday night, who’s doing a lot of work anyway, really? Not many people, it seemed, yet the Internet was slow.</p><p>Bottom line: Yes, <a href=\"http://www.forbes.com/sites/jasonrabinowitz/2015/02/18/seat-assignments-and-faster-more-reliable-wi-fi-coming-to-amtrak/\">Amtrak is working on the WiFi</a>, with a new trackside wireless network that could be up and running next year.</p>",
+    "lat":39.102024,
+    "lng":-76.819153,
+    "id":6
+  }
+]

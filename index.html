@@ -21,6 +21,25 @@
 </head>
 
 <body ng-controller="wifiController">
+	<div class = "content">
+		<div class = "leg" ng-repeat="leg in legs">
+			<div class = "header">
+				<h2>Leg {{$index + 1}}: {{leg.title}}</h2>
+				<h2 class = "speed">Average speed: {{ getAverage($index + 1, 0) }} mbps</h2>
+			</div>
+			<map class = "map"></map> 
+			<div class = "info">
+				<div class = "text" ng-bind-html="useHTML(leg.text)"></div>
+				<div class = "chart">
+					<div class = "chartContainer" height="{{chartHeight}}">
+						<bar ng-repeat="point in leg.points" download = "{{point.download}}" ng-style="{width: barWidth(leg.points.length) + '%', height: barHeight(point.download) + 'px', left: barLeft($index, leg.points.length) + '%', top: barTop(point.download) + 'px'}"></bar>
+					</div>
+				</div>
+			
+			</div>
+				
+		</div>
+	</div>
 
 	 <div id="map"></div>
 
