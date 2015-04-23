@@ -1,16 +1,135 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,500,700);
+
+body {
+	font-family: Roboto, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	color: #2a7068;
+}
+
+.green, .orange, .red {
+	color: rgba(255,255,255,.9);
+}
+
+.green {
+	background-color: #2a7068;
+}
+
+.orange {
+	background-color: #f9a61a;
+}
+
+.red {
+	background-color: #a44229;
+}
+
+.intro {
+	font-size: 16pt;
+	line-height:1.4em;
+	font-weight: 100;
+}
+
+.intro .green, .intro .orange, .intro .red {
+	padding: 2px 5px;
+}	
+
+.leg {
+	
+	margin-top: 30px;
+	padding-top:30px;
+	border-top: 1px solid #ccc;
+}
+
+.header {
+	margin-bottom: 20px;
+}
+
+.header h2 {
+	float:left;
+}
+
+.header h2.speed {
+	font-weight: 100;
+	float:right;
+}
+	
+	.header h2.speed .green, .header h2.speed .orange, .header h2.speed .red {
+		padding: 2px 5px;
+	}  
+
 #map { 
 	height: 400px; 
 }
 
 map {
-	width:200px;
+	width: 37%;
 	height: 200px;
+
+	border: 1px solid #ccc;
 	display:block;
+	float: left;
 }
+
+map.full
+{
+	float:none;
+	width:100%;
+	height: 500px;
+	
+}
+
+.finalMaps {
+	width: 90%;
+	margin: auto;
+	border-top: 1px solid #ccc;
+	padding-top:30px;
+	margin-top:40px;
+}
+
+.finalMaps h2 {
+	margin-bottom: 10px;
+}
+
+.content {
+	max-width: 1000px;
+	width: 100%;
+	margin: auto;
+}
+
+.info {
+	width: 60%;
+	float:right;
+}
+
+.info .text {
+	line-height: 1.3em;
+  font-size: 14pt;
+  font-weight: 400;
+}
+
+	.info .text p:first-child{
+		margin-top: 0;
+	}
 
 .chartContainer {
 	width: 100%;
 	position:relative;
+	border-bottom: 2px solid #999;
+}
+
+.chart .title {
+	color: #555;
+  	margin-bottom: 15px;
+  	border-top: 1px solid #ddd;
+  	padding-top: 10px;
+  	font-size: 12pt;
+	
 }
 
 bar {
@@ -26,3 +145,96 @@ bar {
 		vertical-align:bottom;
 		font-family: "Open Sans", Helvetica, sans-serif;
 	}
+	
+	bar:after{
+	
+		content: attr(download);
+		color: black;
+		position:relative;
+		top: -25px;
+	}
+		bar.green:after{
+			color: #2a7068;
+		}
+		
+		bar.orange:after{
+			color: #f9a61a;
+		}
+		
+		bar.red:after{
+			color: #a44229;
+		}
+		
+	bar:before{
+		content: attr(percent);
+		color: black;
+		position:absolute;
+		bottom: -30px;
+		left: 0;
+		width: 100%;
+		text-align:center;
+		font-size: 10pt;
+		color: #888;
+	}
+	
+.footer {
+
+	margin-top: 30px;
+	text-align: center;
+	color: #888;
+	font-size:11pt;
+}
+
+.img {
+	width: 100%;
+	border-top: 1px solid #ccc;
+	padding-top:30px;
+	margin-top:30px;
+	
+}
+
+	.img .border {
+		max-width: 500px;
+		width: 98%;
+		padding: 1%;
+		border: 1px solid #ccc;
+		margin: auto;
+	}
+
+	.img img {
+
+		width: 100%;
+		margin:auto;
+	}
+	
+	.img .caption {
+		text-align:center;
+		width: 500px; 
+		font-size: 12pt;
+		font-weight: 100;
+		margin: 10px auto;
+	}
+	
+@media screen and (max-width: 700px) {
+    .header h2 {
+		float:none;
+		margin-bottom:10px;
+	}
+
+	.header h2.speed {
+		float:none;
+	}
+	
+	map {
+		float:none;
+		width: 100%;
+		margin-bottom: 10px;
+	}
+	
+	.info {
+		width: 90%;
+		margin: auto;
+		float:none;
+	}
+	
+}

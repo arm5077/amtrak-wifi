@@ -4,6 +4,8 @@
 
 <head>
 	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
 	<!-- Angular -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 	
@@ -22,29 +24,59 @@
 
 <body ng-controller="wifiController">
 	<div class = "content">
+		
+		<div class = "intro">
+			<p><strong>Yes, Amtrak's Wi-Fi is slow.</strong> You're not imagining things, and all those whiny tweets about dropped signals are onto something.</p>
+			<p>But here at National Journal, we wanted more than anecdotal data. Taking advantage of a slow news day, I rode the rails to New York, testing the Wi-Fi speed along the way. To do this absurdly unscientific research properly, I decided to test the Wi-Fi during peak hours. That meant a morning Acela out of Washington and an evening return from New York.</p>
+			<p>The Plan was pretty simple: Ideally, every 10 minutes or so, I'd launch a test on speedtest.net or testmy.net, while marking down my location based on the compass feature on my iPhone (which is pretty accurate).</p>
+			<p style="line-height: 1.46em;">For reference, the Federal Communications Commission recommends a download speed of <span class="green">4 megabits per second</span> to watch streaming video. We counted speeds below <span class = "orange">3 mbps</span> as medium quality and below <span class = "red">1 mbps</span> as low.</p>
+			<p>Your results may vary. All aboard. <span style="color:#aaa; padding-left: 5px;">Graphic by Andrew McGill</span></p>
+		</div>
+		
 		<div class = "leg" ng-repeat="leg in legs">
 			<div class = "header">
 				<h2>Leg {{$index + 1}}: {{leg.title}}</h2>
-				<h2 class = "speed">Average speed: {{ getAverage($index + 1, 0) }} mbps</h2>
+				<h2 class = "speed">Average speed: <span ng-class="{green: getAverage($index + 1, leg.direction) >= 3, orange: getAverage($index + 1, leg.direction) >= 1 && getAverage($index + 1, leg.direction) < 3, red: getAverage($index + 1, leg.direction) < 1}">{{ getAverage($index + 1, leg.direction) }} mbps</span></h2>
+				<div style="clear:both;"></div>
 			</div>
-			<map class = "map"></map> 
+			<map class = "map" size-to-sibling direction = "{{leg.direction}}" lat = "{{leg.lat}}" lng = "{{leg.lng}}" zoom = "{{leg.zoom}}"></map> 
 			<div class = "info">
 				<div class = "text" ng-bind-html="useHTML(leg.text)"></div>
 				<div class = "chart">
-					<div class = "chartContainer" height="{{chartHeight}}">
-						<bar ng-repeat="point in leg.points" download = "{{point.download}}" ng-style="{width: barWidth(leg.points.length) + '%', height: barHeight(point.download) + 'px', left: barLeft($index, leg.points.length) + '%', top: barTop(point.download) + 'px'}"></bar>
+					<div class = "title">Wi-Fi download speed per trip segment, in megabits per second</div>
+					<div class = "chartContainer" ng-style="{height: chartHeight + 'px'}">
+						<bar ng-repeat="point in leg.points" download = "{{point.download}}" percent = "{{Math.round(point.percent_completed * 100)}}%" ng-class="{green: point.download >=3, orange: point.download < 3 && point.download >= 1, red: point.download < 1 }" ng-style="{width: barWidth(leg.points.length) + '%', height: barHeight(point.download) + 'px', left: barLeft($index, leg.points.length) + '%', top: barTop(point.download) + 'px'}"></bar>
+						<div style="clear:both;"></div>	
 					</div>
+					<div style="clear:both;"></div>	
 				</div>
-			
+				<div class = "footer">Percentage of journey completed</div>
 			</div>
-				
+			<div style="clear:both;"></div>	
+			
+			<div class = "img" ng-show="leg.img">
+				<div class = "border">
+					<img ng-src="{{leg.img}}">
+				</div>
+				<div class = "caption">{{leg.caption}}</div>
+			</div>
+			
 		</div>
 	</div>
 
-	 <div id="map"></div>
-
+	<div class = "finalMaps" ng-repeat = "trip in trip">
+		<h2>{{ ($index == 0) ? "Full trip: Washington to New York" : "Full trip: New York to Washington" }}</h2>
+		<map direction = "{{$index}}" class = "full" lat = "39.840543" lng = "-75.869548" zoom = "8"></map>
+	</div>
+	
+	
 </body>
 
 <script src="app.js"></script>
+
+<script type="text/javascript">
+	var pymChild = new pym.Child();
+	setInterval(function(){ pymChild.sendHeight(); console.log("Sending pym ping!") }, 250);
+</script>
 
 </html>

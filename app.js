@@ -4,8 +4,9 @@ app.controller("wifiController", ["$scope", "$http", "$sce", function($scope, $h
 	
 	$scope.padding = .1;
 	$scope.minHeight = 10;
-	$scope.chartHeight = 60;
+	$scope.chartHeight = 100;
 	$scope.max = 10;
+	$scope.Math = Math;
 	
 	$scope.barWidth = function(count) {
 		return (100 / count) * (1 - $scope.padding);
@@ -39,29 +40,33 @@ app.controller("wifiController", ["$scope", "$http", "$sce", function($scope, $h
 		.success(function(data){
 			$scope.legs = data;
 			
+			$scope.trip = [];
+			
 			// Get shape data
 			$http.get("shp/dc-ny.geojson").success(function(data){	
-				$scope.trip1 = data;
-				
-				$scope.legs.forEach(function(leg){
-					var points = $scope.trip1.features.filter(function(point){
-						return ( point.properties.leg == leg.id )
-					});
-					
-					leg.points = points.map(function(point){
-						return point.properties;
-					});
-					
-				});
-				console.log($scope.legs);
+				$scope.trip[0] = data;
+				$http.get("shp/ny-dc.geojson").success(function(data){	
+					$scope.trip[1] = data;					
+					var combined = $scope.trip[0].features.concat($scope.trip[1].features);
+					$scope.legs.forEach(function(leg){
+						var points = combined.filter(function(point){
+							return ( point.properties.leg == leg.id )
+						});
+						
+						leg.points = points.map(function(point){
+							return point.properties;
+						});
+
+					});				
+				});				
 				
 			}).error(function(err){ throw err; });
 		});
 	
 	$scope.getAverage = function(leg, trip){
 		var total = 0, count=0;
-		if( $scope.trip1 ){
-			var speeds = $scope.trip1.features.forEach(function(datum){ 
+		if( $scope.trip[trip] ){
+			var speeds = $scope.trip[trip].features.forEach(function(datum){ 
 				if( datum.properties.leg == leg ){ 
 					total += datum.properties.download;
 					count++;
@@ -106,24 +111,30 @@ app.directive("map", function() {
 	return {
 		restrict: 'E',
 		link: function(scope, element, attr) {
-			var layer = new L.StamenTileLayer("toner-lite");
+				console.log(attr);
 			var map = new L.Map(element[0], {
-			    center: new L.LatLng(scope.leg.lat,scope.leg.lng),
-			    zoom: 8
+			    center: new L.LatLng(attr.lat,attr.lng),
+			    zoom: attr.zoom,
+				attributionControl: false,
+				scrollWheelZoom: false
 			});
-			map.addLayer(layer);
+			
+			map.once('focus', function() { map.scrollWheelZoom.enable(); });
+			
+			L.tileLayer('https://{s}.tiles.mapbox.com/v3/arm5077.78b64076/{z}/{x}/{y}.png', {}
+			).addTo(map);
 			
 			var geoJSONCheck = setInterval(function(){
 
-				if( typeof scope.$parent.trip1 != "undefined" ){				
-					console.log(scope.$parent.trip1);
-					L.geoJson(scope.$parent.trip1,{
+				if( typeof scope.$parent.trip[attr.direction] != "undefined" ){				
+					L.geoJson(scope.$parent.trip[attr.direction],{
 						style: function(feature){
-							if( feature.properties.download >= 3 ) return {color: "#2a7068"}
-							if( feature.properties.download >= 1 ) return {color: "#f9a61a"}
-							if( feature.properties.download < 1 ) return {color: "#a44229"}
+							if( feature.properties.download >= 3 ) return {color: "#2a7068", opacity: .8}
+							if( feature.properties.download >= 1 ) return {color: "#f9a61a", opacity: .8}
+							if( feature.properties.download < 1 ) return {color: "#a44229", opacity: .8}
 						}
 					}).addTo(map);
+					map.invalidateSize(true);
 					clearInterval(geoJSONCheck);
 				}
 
@@ -146,4 +157,20 @@ app.directive("bar", function() {
 	};	
 
 });
+
+app.directive("sizeToSibling", function() {
+	return {
+		link: function(scope, element, attr) {
+			
+			setInterval(function(){
+				element.css({
+					height: Math.min(element.parent().children()[2].offsetHeight, 300) + "px"
+				});
+			}, 500);
+
+		}
+	};	
+
+});
+
 
